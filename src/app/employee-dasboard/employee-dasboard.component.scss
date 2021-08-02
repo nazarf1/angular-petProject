@@ -1,0 +1,31 @@
+.btn-success {
+  margin-right: 10px;
+}
+
+input {
+  &.ng-invalid.ng-touched {
+    border: 2px solid red;
+  }
+  &.ng-valid.touched {
+    border: 1px solid green;
+  }
+}
+
+.container-fluid {
+  cursor: default;
+}
+
+.button{
+  background: #0D6EFD;
+  padding: 7px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  &:hover{
+    background: #4b90f1;
+  }
+  &:disabled{
+    cursor: not-allowed;
+    background: #6faaff;
+  }
+}

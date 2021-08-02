@@ -1,0 +1,120 @@
+<head>
+<title>Dashboard</title>
+</head>
+
+
+<nav class="navbar navbar-light bg-primary">
+      <div  class="container-fluid">
+        <form class="form-inline my-2 my-lg-0">
+          <input type="search" (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel
+                 name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search employees..." >
+        </form>
+        <h1 routerLink=""  style="color: aliceblue; ">Workers</h1>
+        <div class="d-flex">
+          <button (click)="clickAddEmployee()" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success">Add Employee</button>
+          <button (click)="auth.logout()" type="button"  class="btn btn-danger">Logout</button>
+
+        </div>
+      </div>
+</nav>
+
+<div class="text-center m-5" *ngIf="loading">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<table class="table mt-3" *ngIf="!loading">
+  <thead>
+    <tr>
+      <th scope="col">№</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile Number</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of employeeData; let i = index">
+      <td>{{1 + i}}</td>
+      <td>{{row.firstName}}</td>
+      <td>{{row.lastName}}</td>
+      <td>{{row.email}}</td>
+      <td>{{row.phoneNumber}}</td>
+      <td>{{row.salary + '$'}}</td>
+      <td>
+        <button (click)="onEdit(row)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+        <button (click)="deleteEmployee(row)" class="btn btn-danger mx-3">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Employee Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue">
+          <div class="mb-3">
+            <label for="exampleInputFirstName" class="form-label">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" id="exampleInputFirstName" aria-describedby="emailHelp">
+            <div  class="validation">
+              <small *ngIf="formValue.controls['firstName'].invalid && formValue.controls['firstName'].touched">
+                Required field
+              </small>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputLastName" class="form-label">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control" id="exampleInputLastName">
+            <div  class="validation">
+              <small *ngIf="formValue.controls['lastName'].invalid && formValue.controls['lastName'].touched">
+                Required field
+              </small>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail" class="form-label">Email</label>
+            <input type="email" formControlName="email" class="form-control" id="exampleInputEmail">
+            <div  class="validation">
+              <small *ngIf="formValue.controls['email'].invalid && formValue.controls['email'].touched">
+                Invalid email
+              </small>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputMobile" class="form-label">Mobile Number</label>
+            <input type="text" formControlName="phoneNumber" class="form-control" id="exampleInputMobile">
+            <div  class="validation">
+              <small *ngIf="formValue.controls['phoneNumber'].invalid && formValue.controls['phoneNumber'].touched">
+                Wrong phone number
+              </small>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputSalary" class="form-label">Salary</label>
+            <input type="text" formControlName="salary" class="form-control" id="exampleInputSalary">
+            <div  class="validation">
+              <small *ngIf="formValue.controls['salary'].invalid && formValue.controls['salary'].touched">
+                Required field
+              </small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button  type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button  type="button" *ngIf="showAdd" (click)="postEmployeeDetails()" class="button" [disabled]="formValue.invalid">Add</button>
+        <button  type="button" *ngIf="showUpdate" (click)="updateEmployeeDetails()" class="button" [disabled]="formValue.invalid">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
