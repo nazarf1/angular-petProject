@@ -12,18 +12,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { EmployeeDasboardComponent } from './employee-dasboard/employee-dasboard.component';
-import { MainPageComponent } from './main-page/main-page.component';
 import { NotFoundComponent } from './not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeDasboardComponent,
-    MainPageComponent,
     NotFoundComponent,
     LoginPageComponent,
+    DetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -116,6 +116,7 @@ export class EmployeeDasboardComponent implements OnInit {
     this.employeeModelObj.email = this.formValue.value.email;
     this.employeeModelObj.phoneNumber = this.formValue.value.phoneNumber;
     this.employeeModelObj.salary = this.formValue.value.salary;
+
     this.api
       .updateEmployee(this.employeeModelObj, this.employeeModelObj.id)
       .subscribe(

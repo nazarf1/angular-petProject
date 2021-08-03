@@ -37,9 +37,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of employeeData; let i = index">
+    <tr *ngFor="let row of employeeData;  let i = index">
       <td>{{1 + i}}</td>
-      <td>{{row.firstName}}</td>
+      <td routerLink="detail/id">{{row.firstName}}</td>
       <td>{{row.lastName}}</td>
       <td>{{row.email}}</td>
       <td>{{row.phoneNumber}}</td>
