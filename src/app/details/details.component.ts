@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { ApiService } from '../shared/api.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-details',
@@ -31,4 +28,3 @@ export class DetailsComponent implements OnInit {
       });
     });
   }
-}
