@@ -20,7 +20,7 @@ export class LoginGuard implements CanActivate {
       if (!isAuth) {
         return true;
       } else {
-        this.router.navigate(['/Dashboard']);
+        this.router.navigate(['/dashboard']);
         return false;
       }
     });

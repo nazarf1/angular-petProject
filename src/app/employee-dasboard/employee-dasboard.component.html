@@ -1,21 +1,17 @@
-<head>
-<title>Dashboard</title>
-</head>
-
-
 <nav class="navbar navbar-light bg-primary">
-      <div  class="container-fluid">
-        <form class="form-inline my-2 my-lg-0">
-          <input type="search" (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel
-                 name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search employees..." >
-        </form>
-        <h1 routerLink=""  style="color: aliceblue; ">Workers</h1>
-        <div class="d-flex">
-          <button (click)="clickAddEmployee()" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success">Add Employee</button>
-          <button (click)="auth.logout()" type="button"  class="btn btn-danger">Logout</button>
+  <div  class="container-fluid">
+    <form class="form-inline my-2 my-lg-0">
+      <input type="search"
+             (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search employees..." >
+    </form>
+    <h1 routerLink=""  style="color: aliceblue; ">Workers</h1>
+    <div class="d-flex">
+      <button (click)="clickAddEmployee()" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success">Add Employee</button>
+      <button (click)="auth.logout()" type="button"  class="btn btn-danger">Logout</button>
 
-        </div>
-      </div>
+    </div>
+  </div>
 </nav>
 
 <div class="text-center m-5" *ngIf="loading">
@@ -38,8 +34,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let row of employeeData;  let i = index">
-      <td>{{1 + i}}</td>
-      <td routerLink="detail/id">{{row.firstName}}</td>
+      <td>{{i + 1}}</td>
+      <td>{{row.firstName}}</td>
       <td>{{row.lastName}}</td>
       <td>{{row.email}}</td>
       <td>{{row.phoneNumber}}</td>
@@ -47,6 +43,7 @@
       <td>
         <button (click)="onEdit(row)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
         <button (click)="deleteEmployee(row)" class="btn btn-danger mx-3">Delete</button>
+        <button (click)="detail(row)" class="btn btn-danger mx-3">Details</button>
       </td>
     </tr>
   </tbody>

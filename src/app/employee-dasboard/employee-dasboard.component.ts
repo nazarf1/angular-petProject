@@ -6,8 +6,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { ApiService } from '../shared/api.service';
-import { EmployeeModel } from './employee-dash board.model';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
+interface Employee {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  salary: number;
+}
 
 @Component({
   selector: 'app-employee-dasboard',
@@ -16,19 +25,28 @@ import { AuthService } from '../auth.service';
 })
 export class EmployeeDasboardComponent implements OnInit {
   formValue!: FormGroup;
-  employeeModelObj: EmployeeModel = new EmployeeModel();
+  employeeObj?: Employee;
   employeeData!: any;
   showAdd!: boolean;
   showUpdate!: boolean;
   loading = false;
+  currentId?: string;
 
   constructor(
     private formbuilder: FormBuilder,
     private api: ApiService,
-    public auth: AuthService
+    public auth: AuthService,
+    private router: Router,
+    private titleChange: Title
   ) {}
 
+  private changeTitle(title: string) {
+    this.titleChange.setTitle(title);
+  }
+
   ngOnInit(): void {
+    this.changeTitle('Dashboard');
+
     this.loading = true;
 
     this.formValue = this.formbuilder.group({
@@ -55,13 +73,17 @@ export class EmployeeDasboardComponent implements OnInit {
     this.showUpdate = false;
   }
   postEmployeeDetails() {
-    this.employeeModelObj.firstName = this.formValue.value.firstName;
-    this.employeeModelObj.lastName = this.formValue.value.lastName;
-    this.employeeModelObj.email = this.formValue.value.email;
-    this.employeeModelObj.phoneNumber = this.formValue.value.phoneNumber;
-    this.employeeModelObj.salary = this.formValue.value.salary;
+    const { firstName, lastName, email, phoneNumber, salary } =
+      this.formValue.value;
 
-    this.api.postEmployee(this.employeeModelObj).subscribe(
+    this.employeeObj = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      salary,
+    };
+    this.api.postEmployee(this.employeeObj).subscribe(
       (res: any) => {
         console.log(res);
         let ref = document.getElementById('cancel');
@@ -103,7 +125,7 @@ export class EmployeeDasboardComponent implements OnInit {
   onEdit(row: any) {
     this.showAdd = false;
     this.showUpdate = true;
-    this.employeeModelObj.id = row._id;
+    this.currentId = row._id;
     this.formValue.controls['firstName'].setValue(row.firstName);
     this.formValue.controls['lastName'].setValue(row.lastName);
     this.formValue.controls['email'].setValue(row.email);
@@ -111,22 +133,29 @@ export class EmployeeDasboardComponent implements OnInit {
     this.formValue.controls['salary'].setValue(row.salary);
   }
   updateEmployeeDetails() {
-    this.employeeModelObj.firstName = this.formValue.value.firstName;
-    this.employeeModelObj.lastName = this.formValue.value.lastName;
-    this.employeeModelObj.email = this.formValue.value.email;
-    this.employeeModelObj.phoneNumber = this.formValue.value.phoneNumber;
-    this.employeeModelObj.salary = this.formValue.value.salary;
+    const { firstName, lastName, email, phoneNumber, salary } =
+      this.formValue.value;
 
-    this.api
-      .updateEmployee(this.employeeModelObj, this.employeeModelObj.id)
-      .subscribe(
-        (res) => {
-          let ref = document.getElementById('cancel');
-          ref?.click();
-          this.formValue.reset();
-          this.getAllEmployee();
-        },
-        (error) => {}
-      );
+    this.employeeObj = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      salary,
+    };
+
+    this.api.updateEmployee(this.employeeObj, this.currentId).subscribe(
+      (res) => {
+        let ref = document.getElementById('cancel');
+        ref?.click();
+        this.formValue.reset();
+        this.getAllEmployee();
+      },
+      (error) => {}
+    );
+  }
+
+  detail(data: any) {
+    this.router.navigate([`dashboard/detail/${data._id}`]);
   }
 }
