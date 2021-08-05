@@ -8,13 +8,13 @@ export class AuthService {
 
   login() {
     this.isAuth = true;
-    this.router.navigate(['/Dashboard']);
+    this.router.navigate(['/dashboard']);
     localStorage.setItem('auth', 'true');
   }
 
   logout() {
     this.isAuth = false;
-    this.router.navigate(['/Login']);
+    this.router.navigate(['/login']);
     localStorage.setItem('auth', 'false');
   }
 

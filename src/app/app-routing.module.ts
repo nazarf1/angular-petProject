@@ -8,23 +8,24 @@ import { LoginGuard } from './login.guard';
 import { DetailsComponent } from './details/details.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'Login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
-    path: 'Dashboard',
+    path: 'dashboard',
     component: EmployeeDasboardComponent,
     canActivate: [AuthGuard],
     pathMatch: 'full',
   },
   {
-    path: 'Login',
+    path: 'login',
     component: LoginPageComponent,
     pathMatch: 'full',
     canActivate: [LoginGuard],
   },
   {
-    path: 'Dashboard/detail/:id',
+    path: `dashboard/detail/:id`,
     component: DetailsComponent,
     pathMatch: 'full',
+    canActivate: [AuthGuard],
   },
   { path: '**', component: NotFoundComponent },
 ];

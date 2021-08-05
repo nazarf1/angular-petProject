@@ -3,13 +3,28 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
+  styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
+  post: any;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+    private titleChange: Title
+  ) {}
 
-  ngOnInit(): void {
+  private changeTitle(title: string) {
+    this.titleChange.setTitle(title);
   }
 
-}
+  ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.apiService.getEmployeeByID(params.id).subscribe((res: any) => {
+        this.changeTitle(
+          res.data.user.lastName + ' ' + res.data.user.firstName
+        );
+        return (this.post = res.data.user);
+      });
+    });
+  }

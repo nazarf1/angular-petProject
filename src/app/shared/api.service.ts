@@ -19,7 +19,7 @@ export class ApiService {
     );
   }
 
-  updateEmployee(data: any, id: number) {
+  updateEmployee(data: any, id?: string) {
     return this.http.patch<any>(
       `https://friends-api-v1.herokuapp.com/api/v1/friends/${id}`,
       data
@@ -28,6 +28,12 @@ export class ApiService {
 
   deleteEmployee(id: number) {
     return this.http.delete<any>(
+      `https://friends-api-v1.herokuapp.com/api/v1/friends/${id}`
+    );
+  }
+
+  getEmployeeByID(id: number) {
+    return this.http.get(
       `https://friends-api-v1.herokuapp.com/api/v1/friends/${id}`
     );
   }

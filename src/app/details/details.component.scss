@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 250px;
+  width: 900px;
+  height: 200px;
+  box-shadow: 1px 1px 5px 1px rgba(148, 148, 148, 0.5);
+  border-radius: 5px;
+  background-color: blanchedalmond;
+}
+
+.info{
+  text-align: center;
+  width: 100%;
+}
+
+
+
+
+
