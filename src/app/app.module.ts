@@ -11,6 +11,7 @@ import { NotFoundComponent } from './not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { DetailsComponent } from './details/details.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DetailsComponent } from './details/details.component';
     NotFoundComponent,
     LoginPageComponent,
     DetailsComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

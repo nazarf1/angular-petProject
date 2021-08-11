@@ -31,6 +31,7 @@ export class EmployeeDasboardComponent implements OnInit {
   showUpdate!: boolean;
   loading = false;
   currentId?: string;
+  searchText = '';
 
   constructor(
     private formbuilder: FormBuilder,
@@ -104,19 +105,7 @@ export class EmployeeDasboardComponent implements OnInit {
   }
 
   public searchEmployees(key: string): void {
-    let results = [];
-    for (const employee of this.employeeData) {
-      if (
-        employee.firstName.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        employee.lastName.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      ) {
-        results.push(employee);
-      }
-    }
-    this.employeeData = results;
-    if (results.length === 0 || !key) {
-      this.getAllEmployee();
-    }
+    this.searchText = key;
   }
 
   deleteEmployee(row: any) {
