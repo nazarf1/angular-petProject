@@ -83,16 +83,18 @@ export class EmployeeDasboardComponent implements OnInit {
       phoneNumber,
       salary,
     };
-    this.api.postEmployee(this.employeeObj).subscribe(
-      (res: any) => {
-        console.log(res);
-        let ref = document.getElementById('cancel');
-        ref?.click();
-        this.formValue.reset();
-        this.getAllEmployee();
-      },
-      (err: any) => {}
-    );
+    if (this.formValue.valid) {
+      this.api.postEmployee(this.employeeObj).subscribe(
+        (res: any) => {
+          console.log(res);
+          let ref = document.getElementById('cancel');
+          ref?.click();
+          this.formValue.reset();
+          this.getAllEmployee();
+        },
+        (err: any) => {}
+      );
+    }
   }
   getAllEmployee() {
     this.api.getEmployee().subscribe((res) => {
@@ -144,15 +146,17 @@ export class EmployeeDasboardComponent implements OnInit {
       salary,
     };
 
-    this.api.updateEmployee(this.employeeObj, this.currentId).subscribe(
-      (res) => {
-        let ref = document.getElementById('cancel');
-        ref?.click();
-        this.formValue.reset();
-        this.getAllEmployee();
-      },
-      (error) => {}
-    );
+    if (this.formValue.valid) {
+      this.api.updateEmployee(this.employeeObj, this.currentId).subscribe(
+        (res) => {
+          let ref = document.getElementById('cancel');
+          ref?.click();
+          this.formValue.reset();
+          this.getAllEmployee();
+        },
+        (error) => {}
+      );
+    }
   }
 
   detail(data: any) {

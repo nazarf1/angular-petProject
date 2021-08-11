@@ -1,9 +1,10 @@
 <nav class="navbar navbar-light bg-primary">
   <div  class="container-fluid">
     <form class="form-inline my-2 my-lg-0">
-      <input type="search"
+      <input type="text"
              (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel
              name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search employees..." >
+
     </form>
     <h1 routerLink=""  style="color: aliceblue; ">Workers</h1>
     <div class="d-flex">
